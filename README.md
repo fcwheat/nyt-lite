@@ -14,17 +14,10 @@ A lightweight, text-first New York Times news feed reader that runs entirely in 
 ## Usage
 
 1. Get a free NYT Developer API key at [developer.nytimes.com](https://developer.nytimes.com/get-started) (takes about 2 minutes; no subscription required)
-2. Open `feed.html` (or `nyt-feed.html`) directly in your browser
+2. Open `feed.html` directly in your browser
 3. Paste your API key and click **Open the feed →**
 
 To use a different API key or reset, click **Reset key** in the top bar.
-
-## Files
-
-| File | Description |
-|------|-------------|
-| `feed.html` | Full reader with color-coded section tags |
-| `nyt-feed.html` | Simplified version without color-coded tags |
 
 ## Requirements
 
