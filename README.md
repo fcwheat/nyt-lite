@@ -17,7 +17,7 @@ A lightweight, text-first New York Times news feed reader that runs entirely in 
 2. Open `feed.html` (or `nyt-feed.html`) directly in your browser
 3. Paste your API key and click **Open the feed →**
 
-To switch accounts or reset, click **Reset key** in the top bar.
+To use a different API key or reset, click **Reset key** in the top bar.
 
 ## Files
 
