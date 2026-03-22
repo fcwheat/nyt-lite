@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a1208" />
+  <title>NYT Feed</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #faf6f0;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #1a1208;
+      min-height: 100vh;
+    }
+    #setup {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .setup-box {
+      max-width: 420px;
+      width: 100%;
+      background: #fff;
+      border: 1px solid #e0d8cc;
+      border-radius: 4px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .setup-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8b6f4e;
+      margin-bottom: 8px;
+    }
+    .setup-box h1 { font-size: 26px; margin-bottom: 8px; line-height: 1.2; }
+    .setup-box p { font-size: 14px; color: #6a5a4a; line-height: 1.6; margin-bottom: 24px; }
+    .setup-box a { color: #8b6f4e; }
+    #key-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d0c8bc;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 13px;
+      background: #faf6f0;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    #key-submit {
+      width: 100%;
+      padding: 10px;
+      background: #1a1208;
+      color: #faf6f0;
+      border: none;
+      border-radius: 3px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .setup-note { font-size: 12px; color: #b0a898; margin-top: 14px; line-height: 1.5; }
+    #app { display: none; }
+    #topbar {
+      background: #1a1208;
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-title { color: #faf6f0; font-weight: bold; font-size: 16px; }
+    .topbar-sub { color: #8b6f4e; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-left: 8px; }
+    #reset-btn {
+      background: none;
+      border: 1px solid #3a3028;
+      color: #b0a898;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+    }
+    #tabs {
+      overflow-x: auto;
+      background: #f2ebe0;
+      border-bottom: 1px solid #e0d8cc;
+      display: flex;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    #tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 9px 14px;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #7a6a5a;
+      font-family: Georgia, serif;
+      font-size: 13px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .tab-btn.active { border-bottom-color: #1a1208; color: #1a1208; font-weight: bold; }
+    #feed { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+    #feed-meta { padding: 10px 0 4px; font-size: 11px; color: #b0a898; letter-spacing: 0.08em; text-transform: uppercase; }
+    .article {
+      border-bottom: 1px solid #e8e0d5;
+      padding: 12px 0;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .article-num { font-size: 13px; color: #b0a898; min-width: 22px; padding-top: 2px; font-style: italic; flex-shrink: 0; }
+    .article-body { flex: 1; }
+    .article-tag {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8b6f4e;
+      background: #f2ebe0;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-bottom: 4px;
+    }
+    .article-title { font-size: 16px; line-height: 1.35; font-weight: bold; margin-bottom: 4px; }
+    .article-abstract { font-size: 14px; line-height: 1.6; color: #4a3f33; margin: 6px 0; display: none; }
+    .article.open .article-abstract { display: block; }
+    .article-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 5px; }
+    .article-byline { font-size: 12px; color: #7a6a5a; font-style: italic; }
+    .article-time { font-size: 12px; color: #b0a898; font-family: monospace; }
+    .article-link { font-size: 12px; color: #8b6f4e; text-decoration: none; border-bottom: 1px solid #c4a882; }
+    #status { padding: 40px 0; text-align: center; color: #b0a898; font-style: italic; font-size: 14px; }
+    #status.error { color: #c0392b; text-align: left; padding: 20px 0; }
+    .spacer { height: 32px; }
+  </style>
+</head>
+<body>
+
+<div id="setup">
+  <div class="setup-box">
+    <div class="setup-eyebrow">NYT Reader</div>
+    <h1>Text-first feed.<br>No data waste.</h1>
+    <p>
+      Enter your free NYT Developer API key. Get one in 2 minutes at
+      <a href="https://developer.nytimes.com/get-started" target="_blank">developer.nytimes.com</a>.
+      This is separate from your subscription and costs nothing.
+    </p>
+    <input id="key-input" type="text" placeholder="Paste API key here..." />
+    <button id="key-submit">Open the feed →</button>
+    <p class="setup-note">Your key is saved only in this browser. No tracking, no accounts.</p>
+  </div>
+</div>
+
+<div id="app">
+  <div id="topbar">
+    <div>
+      <span class="topbar-title">NYT</span>
+      <span class="topbar-sub">feed</span>
+    </div>
+    <button id="reset-btn">Reset key</button>
+  </div>
+  <div id="tabs"></div>
+  <div id="feed">
+    <div id="feed-meta"></div>
+    <div id="articles"></div>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<script>
+  const SECTIONS = [
+    { id: "home", label: "Top" },
+    { id: "us", label: "U.S." },
+    { id: "world", label: "World" },
+    { id: "politics", label: "Politics" },
+    { id: "business", label: "Business" },
+    { id: "technology", label: "Tech" },
+    { id: "science", label: "Science" },
+    { id: "health", label: "Health" },
+    { id: "arts", label: "Arts" },
+    { id: "sports", label: "Sports" },
+    { id: "opinion", label: "Opinion" },
+  ];
+
+  let currentSection = "home";
+  let apiKey = "";
+
+  function timeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const m = Math.floor(diff / 60000);
+    if (m < 60) return m + "m ago";
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + "h ago";
+    return Math.floor(h / 24) + "d ago";
+  }
+
+  function showApp() {
+    document.getElementById("setup").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    buildTabs();
+    loadSection(currentSection);
+  }
+
+  function buildTabs() {
+    const container = document.getElementById("tabs");
+    container.innerHTML = "";
+    SECTIONS.forEach(s => {
+      const btn = document.createElement("button");
+      btn.className = "tab-btn" + (s.id === currentSection ? " active" : "");
+      btn.textContent = s.label;
+      btn.onclick = () => {
+        currentSection = s.id;
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        loadSection(s.id);
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  async function loadSection(sec) {
+    const articlesEl = document.getElementById("articles");
+    const metaEl = document.getElementById("feed-meta");
+    articlesEl.innerHTML = '<div id="status">Loading...</div>';
+    metaEl.textContent = "";
+
+    try {
+      const res = await fetch(
+        "https://api.nytimes.com/svc/topstories/v2/" + sec + ".json?api-key=" + apiKey
+      );
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403) throw new Error("Invalid API key — check and try again.");
+        throw new Error("Error " + res.status);
+      }
+      const data = await res.json();
+      const articles = data.results || [];
+      metaEl.textContent = articles.length + " stories · tap headline to expand";
+      articlesEl.innerHTML = "";
+      articles.forEach((a, i) => {
+        const byline = (a.byline || "").replace(/^By\s+/i, "");
+        const section = a.subsection || a.section || "";
+        const div = document.createElement("div");
+        div.className = "article";
+        div.innerHTML =
+          '<div class="article-num">' + (i + 1) + '.</div>' +
+          '<div class="article-body">' +
+            (section ? '<span class="article-tag">' + section + '</span>' : '') +
+            '<div class="article-title">' + a.title + '</div>' +
+            '<div class="article-abstract">' + (a.abstract || "") + '</div>' +
+            '<div class="article-meta">' +
+              (byline ? '<span class="article-byline">' + byline + '</span>' : '') +
+              '<span class="article-time">' + timeAgo(a.published_date || a.updated_date) + '</span>' +
+              '<a class="article-link" href="' + a.url + '" target="_blank">Read full ↗</a>' +
+            '</div>' +
+          '</div>';
+        div.onclick = function(e) {
+          if (e.target.classList.contains("article-link")) return;
+          div.classList.toggle("open");
+        };
+        articlesEl.appendChild(div);
+      });
+    } catch (e) {
+      articlesEl.innerHTML = '<div id="status" class="error">' + e.message + '</div>';
+    }
+  }
+
+  // Init — restore saved key
+  const saved = localStorage.getItem("nyt_api_key");
+  if (saved) {
+    apiKey = saved;
+    showApp();
+  }
+
+  document.getElementById("key-submit").onclick = function() {
+    const val = document.getElementById("key-input").value.trim();
+    if (!val) return;
+    apiKey = val;
+    localStorage.setItem("nyt_api_key", val);
+    showApp();
+  };
+
+  document.getElementById("key-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("key-submit").click();
+  });
+
+  document.getElementById("reset-btn").onclick = function() {
+    localStorage.removeItem("nyt_api_key");
+    apiKey = "";
+    document.getElementById("app").style.display = "none";
+    document.getElementById("setup").style.display = "flex";
+    document.getElementById("key-input").value = "";
+  };
+</script>
+</body>
+</html>
