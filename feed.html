@@ -3,16 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1a1208" />
+  <meta name="theme-color" content="#1a1208" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f0a04" media="(prefers-color-scheme: dark)" />
   <title>NYT Feed</title>
-  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiTllUIEZlZWQiLCJzaG9ydF9uYW1lIjoiTllUIEZlZWQiLCJzdGFydF91cmwiOiJmZWVkLmh0bWwiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmFmNmYwIiwidGhlbWVfY29sb3IiOiIjMWExMjA4IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdjbmc5SWprMklpQm1hV3hzUFNJalptRm1ObVl3SWk4K0NpQWdQSFJsZUhRZ2VEMGlNalUySWlCNVBTSXpNRFVpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUNpQWdJQ0JtYjI1MExXWmhiV2xzZVQwaVIyVnZjbWRwWVN3Z0oxUnBiV1Z6SUU1bGR5QlNiMjFoYmljc0lITmxjbWxtSWdvZ0lDQWdabTl1ZEMxemFYcGxQU0l4TkRnaUNpQWdJQ0JtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lLSUNBZ0lHWnBiR3c5SWlNeFlURXlNRGdpQ2lBZ0lDQnNaWFIwWlhJdGMzQmhZMmx1WnowaUxUUWlQazVaVkR3dmRHVjRkRDRLUEM5emRtYytDZz09Iiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJwdXJwb3NlIjoiYW55IG1hc2thYmxlIn1dfQ==">
-  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9Ijk2IiBmaWxsPSIjZmFmNmYwIi8+CiAgPHRleHQgeD0iMjU2IiB5PSIzMDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSwgJ1RpbWVzIE5ldyBSb21hbicsIHNlcmlmIgogICAgZm9udC1zaXplPSIxNDgiCiAgICBmb250LXdlaWdodD0iYm9sZCIKICAgIGZpbGw9IiMxYTEyMDgiCiAgICBsZXR0ZXItc3BhY2luZz0iLTQiPk5ZVDwvdGV4dD4KPC9zdmc+Cg==">
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiTllUIEZlZWQiLCJzaG9ydF9uYW1lIjoiTllUIEZlZWQiLCJzdGFydF91cmwiOiJmZWVkLmh0bWwiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmFmNmYwIiwidGhlbWVfY29sb3IiOiIjMWExMjA4IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdjbmc5SWprMklpQm1hV3hzUFNJalptRm1ObVl3SWk4K0NpQWdQSFJsZUhRZ2VEMGlNalUySWlCNVBTSXlPVGdpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUNpQWdJQ0JtYjI1MExXWmhiV2xzZVQwaVIyVnZjbWRwWVN3Z0oxUnBiV1Z6SUU1bGR5QlNiMjFoYmljc0lITmxjbWxtSWdvZ0lDQWdabTl1ZEMxemFYcGxQU0l4TWpBaUNpQWdJQ0JtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lLSUNBZ0lHWnBiR3c5SWlNeFlURXlNRGdpQ2lBZ0lDQnNaWFIwWlhJdGMzQmhZMmx1WnowaUxUUWlQazVaVkR3dmRHVjRkRDRLUEM5emRtYytDZz09Iiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJwdXJwb3NlIjoiYW55IG1hc2thYmxlIn1dfQ==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9Ijk2IiBmaWxsPSIjZmFmNmYwIi8+CiAgPHRleHQgeD0iMjU2IiB5PSIyOTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSwgJ1RpbWVzIE5ldyBSb21hbicsIHNlcmlmIgogICAgZm9udC1zaXplPSIxMjAiCiAgICBmb250LXdlaWdodD0iYm9sZCIKICAgIGZpbGw9IiMxYTEyMDgiCiAgICBsZXR0ZXItc3BhY2luZz0iLTQiPk5ZVDwvdGV4dD4KPC9zdmc+Cg==">
   <style>
+    :root {
+      --bg: #faf6f0;
+      --bg-alt: #f2ebe0;
+      --bg-raise: #ffffff;
+      --border: #e0d8cc;
+      --border-art: #e8e0d5;
+      --text: #1a1208;
+      --text-muted: #7a6a5a;
+      --text-faint: #b0a898;
+      --text-dim: #4a3f33;
+      --accent: #8b6f4e;
+      --accent-border: #c4a882;
+      --topbar-bg: #1a1208;
+      --topbar-text: #faf6f0;
+      --topbar-sub: #8b6f4e;
+      --topbar-icon: #b0a898;
+      --menu-bg: #2a2018;
+      --menu-border: #3a3028;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16110a;
+        --bg-alt: #201810;
+        --bg-raise: #201810;
+        --border: #3a2e22;
+        --border-art: #2a2018;
+        --text: #e8ddd0;
+        --text-muted: #8a7a6a;
+        --text-faint: #4a4038;
+        --text-dim: #9a8a7a;
+        --accent: #c4a882;
+        --accent-border: #7a5a38;
+        --topbar-bg: #0f0a04;
+        --topbar-text: #e8ddd0;
+        --topbar-sub: #6a5040;
+        --topbar-icon: #5a4a38;
+        --menu-bg: #201810;
+        --menu-border: #3a2e22;
+      }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #faf6f0;
+      background: var(--bg);
       font-family: Georgia, 'Times New Roman', serif;
-      color: #1a1208;
+      color: var(--text);
       min-height: 100vh;
     }
     #setup {
@@ -25,8 +67,8 @@
     .setup-box {
       max-width: 420px;
       width: 100%;
-      background: #fff;
-      border: 1px solid #e0d8cc;
+      background: var(--bg-raise);
+      border: 1px solid var(--border);
       border-radius: 4px;
       padding: 32px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
@@ -35,69 +77,72 @@
       font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #8b6f4e;
+      color: var(--accent);
       margin-bottom: 8px;
     }
     .setup-box h1 { font-size: 26px; margin-bottom: 8px; line-height: 1.2; }
-    .setup-box p { font-size: 14px; color: #6a5a4a; line-height: 1.6; margin-bottom: 24px; }
-    .setup-box a { color: #8b6f4e; }
+    .setup-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+    .setup-box a { color: var(--accent); }
     #key-input {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #d0c8bc;
+      border: 1px solid var(--border);
       border-radius: 3px;
       font-family: monospace;
       font-size: 13px;
-      background: #faf6f0;
+      background: var(--bg);
+      color: var(--text);
       margin-bottom: 12px;
       outline: none;
     }
     #key-submit {
       width: 100%;
       padding: 10px;
-      background: #1a1208;
-      color: #faf6f0;
+      background: var(--text);
+      color: var(--bg);
       border: none;
       border-radius: 3px;
       font-family: Georgia, serif;
       font-size: 14px;
       cursor: pointer;
     }
-    .setup-note { font-size: 12px; color: #b0a898; margin-top: 14px; line-height: 1.5; }
+    .setup-note { font-size: 12px; color: var(--text-faint); margin-top: 14px; line-height: 1.5; }
     #app { display: none; }
-    #topbar {
-      background: #1a1208;
-      padding: 10px 16px;
+    #header {
       position: sticky;
       top: 0;
       z-index: 10;
+    }
+    #topbar {
+      background: var(--topbar-bg);
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .topbar-title { color: #faf6f0; font-weight: bold; font-size: 16px; }
-    .topbar-sub { color: #8b6f4e; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-left: 8px; }
-    #settings-wrap {
-      position: relative;
-    }
-    #settings-btn {
+    .topbar-title { color: var(--topbar-text); font-weight: bold; font-size: 16px; }
+    .topbar-sub { color: var(--topbar-sub); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-left: 8px; }
+    #topbar-right { display: flex; align-items: center; gap: 2px; }
+    #refresh-btn, #settings-btn {
       background: none;
       border: none;
-      color: #b0a898;
-      font-size: 16px;
+      color: var(--topbar-icon);
       padding: 4px 6px;
       cursor: pointer;
-      line-height: 1;
+      line-height: 0;
       border-radius: 2px;
+      display: flex;
+      align-items: center;
     }
-    #settings-btn:hover { color: #faf6f0; }
+    #refresh-btn:hover, #settings-btn:hover { color: var(--topbar-text); }
+    #settings-wrap { position: relative; }
     #settings-menu {
       display: none;
       position: absolute;
       right: 0;
       top: calc(100% + 6px);
-      background: #2a2018;
-      border: 1px solid #3a3028;
+      background: var(--menu-bg);
+      border: 1px solid var(--menu-border);
       border-radius: 3px;
       min-width: 130px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -109,7 +154,7 @@
       width: 100%;
       background: none;
       border: none;
-      color: #b0a898;
+      color: var(--text-faint);
       font-size: 12px;
       padding: 9px 14px;
       text-align: left;
@@ -117,11 +162,11 @@
       font-family: Georgia, serif;
       white-space: nowrap;
     }
-    #reset-btn:hover { background: #3a3028; color: #faf6f0; }
+    #reset-btn:hover { background: var(--menu-border); color: var(--topbar-text); }
     #tabs {
       overflow-x: auto;
-      background: #f2ebe0;
-      border-bottom: 1px solid #e0d8cc;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
       display: flex;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -133,24 +178,26 @@
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
-      color: #7a6a5a;
+      color: var(--text-muted);
       font-family: Georgia, serif;
       font-size: 13px;
       cursor: pointer;
       flex-shrink: 0;
     }
-    .tab-btn.active { border-bottom-color: #1a1208; color: #1a1208; font-weight: bold; }
+    .tab-btn.active { border-bottom-color: var(--text); color: var(--text); font-weight: bold; }
     #feed { max-width: 680px; margin: 0 auto; padding: 0 16px; }
-    #feed-meta { padding: 10px 0 4px; font-size: 11px; color: #b0a898; letter-spacing: 0.08em; text-transform: uppercase; }
+    #feed-meta { padding: 10px 0 4px; font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; }
     .article {
-      border-bottom: 1px solid #e8e0d5;
+      border-bottom: 1px solid var(--border-art);
       padding: 12px 0;
       cursor: pointer;
       display: flex;
       gap: 10px;
       align-items: flex-start;
+      transition: opacity 0.2s;
     }
-    .article-num { font-size: 13px; color: #b0a898; min-width: 22px; padding-top: 2px; font-style: italic; flex-shrink: 0; }
+    .article.read { opacity: 0.45; }
+    .article-num { font-size: 13px; color: var(--text-faint); min-width: 22px; padding-top: 2px; font-style: italic; flex-shrink: 0; }
     .article-body { flex: 1; }
     .article-tag {
       display: inline-block;
@@ -159,9 +206,9 @@
       letter-spacing: 0.08em;
       padding: 2px 6px;
       border-radius: 2px;
-      margin-bottom: 4px;
-      color: #8b6f4e;
-      background: #f2ebe0;
+      margin-right: 3px;
+      color: var(--accent);
+      background: var(--bg-alt);
     }
     .tag-politics   { background: #f5e8e8; color: #8b3a3a; }
     .tag-us         { background: #e8edf5; color: #3a527a; }
@@ -179,14 +226,44 @@
     .tag-travel     { background: #e8f5f0; color: #2a6655; }
     .tag-food       { background: #f5ede8; color: #7a4820; }
     .tag-middleeast { background: #f5f0e8; color: #7a5530; }
+    @media (prefers-color-scheme: dark) {
+      .article-tag    { background: #2a2018; color: #9a8070; }
+      .tag-politics   { background: #2a1818; color: #c47878; }
+      .tag-us         { background: #181e2a; color: #7a9acc; }
+      .tag-world      { background: #181f18; color: #6a9e72; }
+      .tag-business   { background: #282010; color: #b89050; }
+      .tag-technology { background: #182020; color: #50a0a0; }
+      .tag-science    { background: #201828; color: #9070c0; }
+      .tag-health     { background: #281820; color: #b06090; }
+      .tag-arts       { background: #281e18; color: #b07060; }
+      .tag-sports     { background: #242018; color: #a08040; }
+      .tag-opinion    { background: #222222; color: #909090; }
+      .tag-media      { background: #182028; color: #5090b0; }
+      .tag-nyregion   { background: #201828; color: #8070c0; }
+      .tag-realestate { background: #1a2018; color: #70a060; }
+      .tag-travel     { background: #182820; color: #50a090; }
+      .tag-food       { background: #282018; color: #b07840; }
+      .tag-middleeast { background: #282018; color: #b08858; }
+    }
     .article-title { font-size: 16px; line-height: 1.35; font-weight: bold; margin-bottom: 4px; }
-    .article-abstract { font-size: 14px; line-height: 1.6; color: #4a3f33; margin: 6px 0; display: none; }
+    .article-abstract { font-size: 14px; line-height: 1.6; color: var(--text-dim); margin: 6px 0; display: none; }
     .article.open .article-abstract { display: block; }
     .article-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 5px; }
-    .article-byline { font-size: 12px; color: #7a6a5a; font-style: italic; }
-    .article-time { font-size: 12px; color: #b0a898; font-family: monospace; }
-    .article-link { font-size: 12px; color: #8b6f4e; text-decoration: none; border-bottom: 1px solid #c4a882; }
-    #status { padding: 40px 0; text-align: center; color: #b0a898; font-style: italic; font-size: 14px; }
+    .article-new {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      border-radius: 2px;
+      padding: 1px 4px;
+      font-style: normal;
+      font-family: Georgia, serif;
+    }
+    .article-byline { font-size: 12px; color: var(--text-muted); font-style: italic; }
+    .article-time { font-size: 12px; color: var(--text-faint); font-family: monospace; }
+    .article-link { font-size: 12px; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
+    #status { padding: 40px 0; text-align: center; color: var(--text-faint); font-style: italic; font-size: 14px; }
     #status.error { color: #c0392b; text-align: left; padding: 20px 0; }
     .spacer { height: 32px; }
   </style>
@@ -209,19 +286,40 @@
 </div>
 
 <div id="app">
-  <div id="topbar">
-    <div>
-      <span class="topbar-title">NYT</span>
-      <span class="topbar-sub">feed</span>
-    </div>
-    <div id="settings-wrap">
-      <button id="settings-btn" title="Settings">⚙</button>
-      <div id="settings-menu">
-        <button id="reset-btn">Reset API key</button>
+  <div id="header">
+    <div id="topbar">
+      <div>
+        <span class="topbar-title">NYT</span>
+        <span class="topbar-sub">feed</span>
+      </div>
+      <div id="topbar-right">
+        <button id="refresh-btn" title="Refresh">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M21 13a9 9 0 1 1-3-7.7L21 8"/></svg>
+        </button>
+        <div id="settings-wrap">
+          <button id="settings-btn" title="Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+          <div id="settings-menu">
+            <button id="reset-btn">Reset API key</button>
+          </div>
+        </div>
       </div>
     </div>
+    <div id="tabs">
+      <button class="tab-btn active" data-section="home">Top</button>
+      <button class="tab-btn" data-section="us">U.S.</button>
+      <button class="tab-btn" data-section="world">World</button>
+      <button class="tab-btn" data-section="politics">Politics</button>
+      <button class="tab-btn" data-section="business">Business</button>
+      <button class="tab-btn" data-section="technology">Tech</button>
+      <button class="tab-btn" data-section="science">Science</button>
+      <button class="tab-btn" data-section="health">Health</button>
+      <button class="tab-btn" data-section="arts">Arts</button>
+      <button class="tab-btn" data-section="sports">Sports</button>
+      <button class="tab-btn" data-section="opinion">Opinion</button>
+    </div>
   </div>
-  <div id="tabs"></div>
   <div id="feed">
     <div id="feed-meta"></div>
     <div id="articles"></div>
@@ -230,26 +328,21 @@
 </div>
 
 <script>
-  const SECTIONS = [
-    { id: "home", label: "Top" },
-    { id: "us", label: "U.S." },
-    { id: "world", label: "World" },
-    { id: "politics", label: "Politics" },
-    { id: "business", label: "Business" },
-    { id: "technology", label: "Tech" },
-    { id: "science", label: "Science" },
-    { id: "health", label: "Health" },
-    { id: "arts", label: "Arts" },
-    { id: "sports", label: "Sports" },
-    { id: "opinion", label: "Opinion" },
-  ];
-
   let currentSection = "home";
   let apiKey = "";
+
+  // Persisted state
+  let readSet = new Set(JSON.parse(localStorage.getItem("nyt_read") || "[]"));
+  let lastVisitMap = JSON.parse(localStorage.getItem("nyt_last_visit") || "{}");
+
+  function saveRead() {
+    localStorage.setItem("nyt_read", JSON.stringify([...readSet]));
+  }
 
   function timeAgo(dateStr) {
     const diff = Date.now() - new Date(dateStr).getTime();
     const m = Math.floor(diff / 60000);
+    if (m < 1) return "just now";
     if (m < 60) return m + "m ago";
     const h = Math.floor(m / 60);
     if (h < 24) return h + "h ago";
@@ -264,19 +357,13 @@
   }
 
   function buildTabs() {
-    const container = document.getElementById("tabs");
-    container.innerHTML = "";
-    SECTIONS.forEach(s => {
-      const btn = document.createElement("button");
-      btn.className = "tab-btn" + (s.id === currentSection ? " active" : "");
-      btn.textContent = s.label;
+    document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.onclick = () => {
-        currentSection = s.id;
+        currentSection = btn.dataset.section;
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        loadSection(s.id);
+        loadSection(currentSection);
       };
-      container.appendChild(btn);
     });
   }
 
@@ -285,6 +372,11 @@
     const metaEl = document.getElementById("feed-meta");
     articlesEl.innerHTML = '<div id="status">Loading...</div>';
     metaEl.textContent = "";
+
+    // Track visit: grab previous visit time, then update to now
+    const prevVisit = lastVisitMap[sec];
+    lastVisitMap[sec] = Date.now();
+    localStorage.setItem("nyt_last_visit", JSON.stringify(lastVisitMap));
 
     try {
       const res = await fetch(
@@ -296,25 +388,39 @@
       }
       const data = await res.json();
       const articles = data.results || [];
-      metaEl.textContent = articles.length + " stories · tap headline to expand";
+      const updatedStr = data.last_updated ? " · updated " + timeAgo(data.last_updated) : "";
+      metaEl.textContent = articles.length + " stories" + updatedStr + " · tap headline to expand";
       articlesEl.innerHTML = "";
       articles.forEach((a, i) => {
         const byline = (a.byline || "").replace(/^By\s+/i, "");
-        const section = a.subsection || a.section || "";
+        const sectionName = a.section || "";
+        const subsectionName = a.subsection || "";
+        const sectionKey = sectionName.toLowerCase().replace(/\s+/g, '');
+        const tags = (sectionName ? '<span class="article-tag tag-' + sectionKey + '">' + sectionName + '</span>' : '') +
+          (subsectionName && subsectionName !== sectionName ? '<span class="article-tag tag-' + sectionKey + '">' + subsectionName + '</span>' : '');
+        const isRead = readSet.has(a.url);
+        const isNew = prevVisit != null && new Date(a.published_date || a.updated_date).getTime() > prevVisit;
         const div = document.createElement("div");
-        div.className = "article";
+        div.className = "article" + (isRead ? " read" : "");
         div.innerHTML =
           '<div class="article-num">' + (i + 1) + '.</div>' +
           '<div class="article-body">' +
-            (section ? '<span class="article-tag tag-' + section.toLowerCase().replace(/\s+/g, '') + '">' + section + '</span>' : '') +
             '<div class="article-title">' + a.title + '</div>' +
             '<div class="article-abstract">' + (a.abstract || "") + '</div>' +
             '<div class="article-meta">' +
+              (isNew ? '<span class="article-new">new</span>' : '') +
               (byline ? '<span class="article-byline">' + byline + '</span>' : '') +
               '<span class="article-time">' + timeAgo(a.published_date || a.updated_date) + '</span>' +
               '<a class="article-link" href="' + a.url + '" target="_blank">Read full ↗</a>' +
+              tags +
             '</div>' +
           '</div>';
+        const link = div.querySelector(".article-link");
+        link.addEventListener("click", () => {
+          readSet.add(a.url);
+          saveRead();
+          div.classList.add("read");
+        });
         div.onclick = function(e) {
           if (e.target.classList.contains("article-link")) return;
           div.classList.toggle("open");
@@ -325,6 +431,26 @@
       articlesEl.innerHTML = '<div id="status" class="error">' + e.message + '</div>';
     }
   }
+
+  // Swipe between tabs
+  let touchStartX = 0, touchStartY = 0;
+  document.getElementById("feed").addEventListener("touchstart", e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.getElementById("feed").addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      const tabs = Array.from(document.querySelectorAll(".tab-btn"));
+      const idx = tabs.findIndex(b => b.dataset.section === currentSection);
+      const next = dx < 0 ? Math.min(idx + 1, tabs.length - 1) : Math.max(idx - 1, 0);
+      if (next !== idx) {
+        tabs[next].click();
+        tabs[next].scrollIntoView({ inline: "center", behavior: "smooth" });
+      }
+    }
+  }, { passive: true });
 
   // Init — restore saved key
   const saved = localStorage.getItem("nyt_api_key");
@@ -344,6 +470,10 @@
   document.getElementById("key-input").addEventListener("keydown", function(e) {
     if (e.key === "Enter") document.getElementById("key-submit").click();
   });
+
+  document.getElementById("refresh-btn").onclick = function() {
+    loadSection(currentSection);
+  };
 
   const settingsBtn = document.getElementById("settings-btn");
   const settingsMenu = document.getElementById("settings-menu");
