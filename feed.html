@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0f0a04" media="(prefers-color-scheme: dark)" />
   <title>NYT Feed</title>
   <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiTllUIEZlZWQiLCJzaG9ydF9uYW1lIjoiTllUIEZlZWQiLCJzdGFydF91cmwiOiJmZWVkLmh0bWwiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmFmNmYwIiwidGhlbWVfY29sb3IiOiIjMWExMjA4IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdjbmc5SWprMklpQm1hV3hzUFNJalptRm1ObVl3SWk4K0NpQWdQSFJsZUhRZ2VEMGlNalUySWlCNVBTSXlPVGdpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaUNpQWdJQ0JtYjI1MExXWmhiV2xzZVQwaVIyVnZjbWRwWVN3Z0oxUnBiV1Z6SUU1bGR5QlNiMjFoYmljc0lITmxjbWxtSWdvZ0lDQWdabTl1ZEMxemFYcGxQU0l4TWpBaUNpQWdJQ0JtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lLSUNBZ0lHWnBiR3c5SWlNeFlURXlNRGdpQ2lBZ0lDQnNaWFIwWlhJdGMzQmhZMmx1WnowaUxUUWlQazVaVkR3dmRHVjRkRDRLUEM5emRtYytDZz09Iiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJwdXJwb3NlIjoiYW55IG1hc2thYmxlIn1dfQ==">
-  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9Ijk2IiBmaWxsPSIjZmFmNmYwIi8+CiAgPHRleHQgeD0iMjU2IiB5PSIyOTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSwgJ1RpbWVzIE5ldyBSb21hbicsIHNlcmlmIgogICAgZm9udC1zaXplPSIxMjAiCiAgICBmb250LXdlaWdodD0iYm9sZCIKICAgIGZpbGw9IiMxYTEyMDgiCiAgICBsZXR0ZXItc3BhY2luZz0iLTQiPk5ZVDwvdGV4dD4KPC9zdmc+Cg==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9Ijk2IiBmaWxsPSIjZmFmNmYwIi8+CiAgPHRleHQgeD0iMjU2IiB5PSIyOTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iR2VvcmdpYSwgJ1RpbWVzIE5ldyBSb21hbicsIHNlcmlmIgogICAgZm9udC1zaXplPSIxMzQiCiAgICBmb250LXdlaWdodD0iYm9sZCIKICAgIGZpbGw9IiMxYTEyMDgiCiAgICBsZXR0ZXItc3BhY2luZz0iLTQiPk5ZVDwvdGV4dD4KPC9zdmc+Cg==">
   <style>
     :root {
       --bg: #faf6f0;
@@ -197,8 +197,9 @@
       transition: opacity 0.2s;
     }
     .article.read { opacity: 0.45; }
-    .article-num { font-size: 13px; color: var(--text-faint); min-width: 22px; padding-top: 2px; font-style: italic; flex-shrink: 0; }
-    .article-body { flex: 1; }
+    .article-num { font-size: 13px; color: var(--text-faint); min-width: 18px; padding-top: 2px; font-style: italic; flex-shrink: 0; }
+    .article-body { flex: 1; min-width: 0; }
+    .article-content { min-width: 0; }
     .article-tag {
       display: inline-block;
       font-size: 10px;
@@ -206,7 +207,6 @@
       letter-spacing: 0.08em;
       padding: 2px 6px;
       border-radius: 2px;
-      margin-right: 3px;
       color: var(--accent);
       background: var(--bg-alt);
     }
@@ -248,7 +248,7 @@
     .article-title { font-size: 16px; line-height: 1.35; font-weight: bold; margin-bottom: 4px; }
     .article-abstract { font-size: 14px; line-height: 1.6; color: var(--text-dim); margin: 6px 0; display: none; }
     .article.open .article-abstract { display: block; }
-    .article-meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 5px; }
+    .article-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 5px; }
     .article-new {
       font-size: 9px;
       text-transform: uppercase;
@@ -261,7 +261,7 @@
       font-family: Georgia, serif;
     }
     .article-byline { font-size: 12px; color: var(--text-muted); font-style: italic; }
-    .article-time { font-size: 12px; color: var(--text-faint); font-family: monospace; }
+    .article-time { font-size: 12px; color: var(--text-faint); }
     .article-link { font-size: 12px; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-border); }
     #status { padding: 40px 0; text-align: center; color: var(--text-faint); font-style: italic; font-size: 14px; }
     #status.error { color: #c0392b; text-align: left; padding: 20px 0; }
@@ -329,6 +329,7 @@
 
 <script>
   let currentSection = "home";
+  const ICON_EXTERNAL = '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;position:relative;top:-1px"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
   let apiKey = "";
 
   // Persisted state
@@ -388,16 +389,31 @@
       }
       const data = await res.json();
       const articles = data.results || [];
-      const updatedStr = data.last_updated ? " · updated " + timeAgo(data.last_updated) : "";
+      const freshest = articles.reduce((max, a) => {
+        const d = a.published_date || a.updated_date;
+        return d && new Date(d) > new Date(max) ? d : max;
+      }, "");
+      const updatedStr = freshest ? " · updated " + timeAgo(freshest) : "";
       metaEl.textContent = articles.length + " stories" + updatedStr + " · tap headline to expand";
       articlesEl.innerHTML = "";
       articles.forEach((a, i) => {
-        const byline = (a.byline || "").replace(/^By\s+/i, "");
+        const rawByline = (a.byline || "").replace(/^By\s+/i, "");
+        const bylineAuthors = rawByline ? rawByline.split(/,\s*|\s+and\s+/i).map(s => s.trim()).filter(Boolean) : [];
+        const byline = bylineAuthors.length > 2
+          ? bylineAuthors.slice(0, 2).join(", ") + " and " + (bylineAuthors.length - 2) + " other" + (bylineAuthors.length - 2 > 1 ? "s" : "")
+          : rawByline;
         const sectionName = a.section || "";
         const subsectionName = a.subsection || "";
         const sectionKey = sectionName.toLowerCase().replace(/\s+/g, '');
-        const tags = (sectionName ? '<span class="article-tag tag-' + sectionKey + '">' + sectionName + '</span>' : '') +
-          (subsectionName && subsectionName !== sectionName ? '<span class="article-tag tag-' + sectionKey + '">' + subsectionName + '</span>' : '');
+        const abbrev = (s) => s.replace(/^technology$/i, "Tech");
+        let tagHtml = "";
+        if (sec === "home") {
+          if (sectionName) tagHtml = '<span class="article-tag tag-' + sectionKey + '">' + abbrev(sectionName) + '</span>';
+        } else {
+          const rawLabel = subsectionName || sectionName;
+          const label = rawLabel.toLowerCase() !== sec.toLowerCase() ? rawLabel : "";
+          if (label) tagHtml = '<span class="article-tag tag-' + sectionKey + '">' + abbrev(label) + '</span>';
+        }
         const isRead = readSet.has(a.url);
         const isNew = prevVisit != null && new Date(a.published_date || a.updated_date).getTime() > prevVisit;
         const div = document.createElement("div");
@@ -405,14 +421,16 @@
         div.innerHTML =
           '<div class="article-num">' + (i + 1) + '.</div>' +
           '<div class="article-body">' +
-            '<div class="article-title">' + a.title + '</div>' +
-            '<div class="article-abstract">' + (a.abstract || "") + '</div>' +
-            '<div class="article-meta">' +
-              (isNew ? '<span class="article-new">new</span>' : '') +
-              (byline ? '<span class="article-byline">' + byline + '</span>' : '') +
-              '<span class="article-time">' + timeAgo(a.published_date || a.updated_date) + '</span>' +
-              '<a class="article-link" href="' + a.url + '" target="_blank">Read full ↗</a>' +
-              tags +
+            '<div class="article-content">' +
+              '<div class="article-title">' + a.title + '</div>' +
+              '<div class="article-abstract">' + (a.abstract || "") + '</div>' +
+              '<div class="article-meta">' +
+                (isNew ? '<span class="article-new">new</span>' : '') +
+                (byline ? '<span class="article-byline">' + byline + '</span>' : '') +
+                (tagHtml ? tagHtml : '') +
+                '<span class="article-time">' + timeAgo(a.published_date || a.updated_date) + '</span>' +
+                '<a class="article-link" href="' + a.url + '" target="_blank">Read full ' + ICON_EXTERNAL + '</a>' +
+              '</div>' +
             '</div>' +
           '</div>';
         const link = div.querySelector(".article-link");
