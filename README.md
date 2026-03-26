@@ -4,7 +4,7 @@ A lightweight, text-first New York Times news feed reader that runs entirely in 
 
 ## Features
 
-- Browse top stories across 11 sections: Top, U.S., World, Politics, Business, Tech, Science, Health, Arts, Sports, and Opinion
+- Browse top stories across 12 sections: Top, Trending, U.S., World, Politics, Business, Tech, Science, Health, Arts, Sports, and Opinion
 - Tap any headline to expand its abstract
 - Color-coded section tags for quick scanning
 - Relative timestamps (e.g. "2h ago")
@@ -13,7 +13,7 @@ A lightweight, text-first New York Times news feed reader that runs entirely in 
 
 ## Usage
 
-1. Get a free NYT Developer API key at [developer.nytimes.com](https://developer.nytimes.com/get-started) (takes about 2 minutes; no subscription required)
+1. Get a free NYT Developer API key at [developer.nytimes.com](https://developer.nytimes.com/get-started) (takes about 2 minutes; no subscription required) and enable both the **Top Stories API** and **Most Popular API** for your app
 2. Open `feed.html` directly in your browser
 3. Paste your API key and click **Open the feed →**
 
