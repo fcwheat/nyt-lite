@@ -381,6 +381,7 @@
     localStorage.setItem("nyt_last_visit", JSON.stringify(lastVisitMap));
 
     try {
+      // Trending uses the Most Popular API (7-day most viewed); all others use Top Stories API
       const url = sec === "trending"
         ? "https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=" + apiKey
         : "https://api.nytimes.com/svc/topstories/v2/" + sec + ".json?api-key=" + apiKey;
