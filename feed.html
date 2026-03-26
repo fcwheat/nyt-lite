@@ -308,6 +308,7 @@
     </div>
     <div id="tabs">
       <button class="tab-btn active" data-section="home">Top</button>
+      <button class="tab-btn" data-section="trending">Trending</button>
       <button class="tab-btn" data-section="us">U.S.</button>
       <button class="tab-btn" data-section="world">World</button>
       <button class="tab-btn" data-section="politics">Politics</button>
@@ -380,15 +381,20 @@
     localStorage.setItem("nyt_last_visit", JSON.stringify(lastVisitMap));
 
     try {
-      const res = await fetch(
-        "https://api.nytimes.com/svc/topstories/v2/" + sec + ".json?api-key=" + apiKey
-      );
+      const url = sec === "trending"
+        ? "https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=" + apiKey
+        : "https://api.nytimes.com/svc/topstories/v2/" + sec + ".json?api-key=" + apiKey;
+      const res = await fetch(url);
       if (!res.ok) {
         if (res.status === 401 || res.status === 403) throw new Error("Invalid API key — check and try again.");
         throw new Error("Error " + res.status);
       }
       const data = await res.json();
-      const articles = data.results || [];
+      const rawArticles = data.results || [];
+      // Most Popular API uses different field names — normalize to Top Stories shape
+      const articles = sec === "trending"
+        ? rawArticles.map(a => ({ ...a, published_date: a.published_date || a.updated, abstract: a.abstract, section: a.section, subsection: a.subsection || "" }))
+        : rawArticles;
       const freshest = articles.reduce((max, a) => {
         const d = a.published_date || a.updated_date;
         return d && new Date(d) > new Date(max) ? d : max;
@@ -407,7 +413,7 @@
         const sectionKey = sectionName.toLowerCase().replace(/\s+/g, '');
         const abbrev = (s) => s.replace(/^technology$/i, "Tech");
         let tagHtml = "";
-        if (sec === "home") {
+        if (sec === "home" || sec === "trending") {
           if (sectionName) tagHtml = '<span class="article-tag tag-' + sectionKey + '">' + abbrev(sectionName) + '</span>';
         } else {
           const rawLabel = subsectionName || sectionName;
